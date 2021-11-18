@@ -10,10 +10,10 @@ class vector_3d {
         vector_3d(double x, double y, double z): x1{x}, x2{y}, x3{z} {}
 
         // destructor
-        ~vector_3d();
+        ~vector_3d() {}
 
         // copy/move
-
+        
 
         // operators
         vector_3d operator+(const vector_3d &other) const {
@@ -89,6 +89,16 @@ vector_3d cross_product(const vector_3d &a, const vector_3d &b) {
     double x1_term = a.get_x2() * b.get_x3() - a.get_x3() * b.get_x2();
     double x2_term = -(a.get_x1() * b.get_x3() - a.get_x3() * b.get_x1());
     double x3_term = a.get_x1() * b.get_x2() - a.get_x2() * b.get_x1();
+    // for more intuitive representation, all cases of -0 are converted to 0
+    if (x1_term == -0) {
+        x1_term = 0;
+    }
+    if (x2_term == -0) {
+        x2_term = 0;
+    }
+    if (x3_term == -0) {
+        x3_term = 0;
+    }
     return vector_3d(x1_term, x2_term, x3_term);
 }
 
