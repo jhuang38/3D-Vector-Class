@@ -12,8 +12,14 @@ class vector_3d {
         // destructor
         ~vector_3d() {}
 
-        // copy/move
-        
+        // copy
+        vector_3d(const vector_3d &original) {
+            set_x1(original.get_x1());
+            set_x2(original.get_x2());
+            set_x3(original.get_x3());
+        }
+
+        //move
 
         // operators
         vector_3d operator+(const vector_3d &other) const {
@@ -22,12 +28,18 @@ class vector_3d {
         vector_3d operator-(const vector_3d &other) const {
             return vector_3d(x1 - other.x1, x2 - other.x2, x3 - other.x3);
         }
+        // scalar multiplication operator
+        vector_3d operator*(const double &scalar) const {
+            return vector_3d(x1 * scalar, x2 * scalar, x3 * scalar);
+        }
         bool operator==(const vector_3d &other) const {
             return ((x1 == other.x1) && (x2 == other.x2) && (x3 == other.x3));
         }
         bool operator!=(const vector_3d &other) const {
             return ((x1 != other.x1) || (x2 != other.x2) || (x3 != other.x3));
         }
+        
+        
         friend std::ostream &operator<<(std::ostream &out, vector_3d const &a);
 
         // member functions
