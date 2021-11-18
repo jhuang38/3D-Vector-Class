@@ -59,8 +59,12 @@ class vector_3d {
             set_x3(get_x3()/original_norm);
 
         }
+
+        friend double dot_product(const vector_3d &a, const vector_3d &b);
+
         vector_3d projection(const vector_3d &other) {
-            return 
+            const double scalar_factor = dot_product(get_x1(), other.get_x1())/(other.norm() * other.norm());
+            return vector_3d(scalar_factor * get_x1(), scalar_factor * get_x2(), scalar_factor * get_x3());
         }
 
 
