@@ -67,6 +67,11 @@ class vector_3d {
             return vector_3d(scalar_factor * other.get_x1(), scalar_factor * other.get_x2(), scalar_factor * other.get_x3());
         }
 
+        vector_3d perp(const vector_3d &other) {
+            vector_3d to_project(get_x1(), get_x2(), get_x3());
+            return to_project - to_project.projection(other);
+        }
+
         friend vector_3d cross_product(const vector_3d &a, const vector_3d &b);
 };
 
