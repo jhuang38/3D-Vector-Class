@@ -28,7 +28,7 @@ class vector_3d {
         bool operator!=(const vector_3d &other) const {
             return ((x1 != other.x1) || (x2 != other.x2) || (x3 != other.x3));
         }
-        friend std::ostream &operator<<(std::ostream &out, vector_3d const a);
+        friend std::ostream &operator<<(std::ostream &out, vector_3d const &a);
 
         // member functions
         double get_x1() const {
@@ -59,25 +59,31 @@ class vector_3d {
             set_x3(get_x3()/original_norm);
 
         }
-
         friend double dot_product(const vector_3d &a, const vector_3d &b);
 
         vector_3d projection(const vector_3d &other) {
             vector_3d to_project(get_x1(), get_x2(), get_x3());
             double scalar_factor = dot_product(to_project, other)/(other.norm() * other.norm());
-            return vector_3d(scalar_factor * get_x1(), scalar_factor * get_x2(), scalar_factor * get_x3());
+            return vector_3d(scalar_factor * other.get_x1(), scalar_factor * other.get_x2(), scalar_factor * other.get_x3());
         }
 
-
+        friend vector_3d cross_product(const vector_3d &a, const vector_3d &b);
 };
 
 // other functions
 std::ostream &operator<<(std::ostream &out, vector_3d const &a) {
-    out << "[" << a.get_x1() << ", " << a.get_x2() << ", " << a.get_x3() << "]";
+    out << "[" << a.x1 << ", " << a.x2 << ", " << a.x3 << "]";
     return out;
 }
 
 double dot_product(const vector_3d &a, const vector_3d &b) {
     return a.get_x1() * b.get_x1() + a.get_x2() * b.get_x2() + a.get_x3() * b.get_x3();
+}
+
+vector_3d cross_product(const vector_3d &a, const vector_3d &b) {
+    double x1_term = a.get_x2() * b.get_x3() - a.get_x3() * b.get_x2();
+    double x2_term = -(a.get_x1() * b.get_x3() - a.get_x3() * b.get_x1());
+    double x3_term = a.get_x1() * b.get_x2() - a.get_x2() * b.get_x1();
+    return vector_3d(x1_term, x2_term, x3_term);
 }
 
