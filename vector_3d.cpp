@@ -21,7 +21,7 @@ class vector_3d {
 
         //move
 
-        // operators
+        // overloaded operators
         vector_3d operator+(const vector_3d &other) const {
             return vector_3d(x1 + other.x1, x2 + other.x2, x3 + other.x3);
         }
@@ -43,6 +43,7 @@ class vector_3d {
         friend std::ostream &operator<<(std::ostream &out, vector_3d const &a);
 
         // member functions
+        // setters and getters
         double get_x1() const {
             return x1;
         }
@@ -61,6 +62,7 @@ class vector_3d {
         void set_x3(double new_x3) {
             x3 = new_x3;
         }
+        // other operations with vectors
         double norm() const {
             return std::sqrt(get_x1() * get_x1() + get_x2() * get_x2() + get_x3() * get_x3());
         }
@@ -73,13 +75,13 @@ class vector_3d {
         }
         friend double dot_product(const vector_3d &a, const vector_3d &b);
 
-        vector_3d projection(const vector_3d &other) {
+        vector_3d projection(const vector_3d &other) const {
             vector_3d to_project(get_x1(), get_x2(), get_x3());
             double scalar_factor = dot_product(to_project, other)/(other.norm() * other.norm());
             return vector_3d(scalar_factor * other.get_x1(), scalar_factor * other.get_x2(), scalar_factor * other.get_x3());
         }
 
-        vector_3d perp(const vector_3d &other) {
+        vector_3d perp(const vector_3d &other) const {
             vector_3d to_project(get_x1(), get_x2(), get_x3());
             return to_project - to_project.projection(other);
         }
